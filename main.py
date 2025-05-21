@@ -1,6 +1,7 @@
 import json
 import os
 
+from flask import *
 from peewee import PostgresqlDatabase
 
 CONFIG_FILE = os.path.join("config", "config.json")
@@ -30,4 +31,14 @@ with open(CONFIG_FILE, "r", encoding="utf-8") as f:
 
 pg_db = PostgresqlDatabase(DB_NAME, user=DB_USER, password=DB_PASSWORD, host=DB_HOST, port=DB_PORT)
 
+app = Flask(__name__)
+
+
+@app.route("/")
+def index():
+    return render_template("index.html")
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
 
