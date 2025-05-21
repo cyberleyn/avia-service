@@ -174,3 +174,7 @@ cython_debug/
 .pypirc
 
 config/
+
+test-data/
+
+utils/
