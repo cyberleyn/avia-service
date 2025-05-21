@@ -1,9 +1,16 @@
 import json
 import os
 
+from peewee import PostgresqlDatabase
+
 CONFIG_FILE = os.path.join("config", "config.json")
 DEFAULT_CONFIG = {
-    "admin_key": "admin",
+    "db_name": "my_db",
+    "db_user": "user",
+    "db_password": "3212",
+    "db_host": "localhost",
+    "db_port": 1221
+
 }
 
 if not os.path.exists(CONFIG_FILE):
@@ -15,4 +22,12 @@ if not os.path.exists(CONFIG_FILE):
 
 with open(CONFIG_FILE, "r", encoding="utf-8") as f:
     config = json.load(f)
-    ADMIN_KEY = config["admin_key"]
+    DB_NAME = config["db_name"]
+    DB_USER = config["db_user"]
+    DB_PASSWORD = config["db_password"]
+    DB_HOST = config["db_host"]
+    DB_PORT = config["db_port"]
+
+pg_db = PostgresqlDatabase(DB_NAME, user=DB_USER, password=DB_PASSWORD, host=DB_HOST, port=DB_PORT)
+
+
