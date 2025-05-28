@@ -19,7 +19,7 @@ def index():
             return redirect(url_for("login"))
         else:
             userid = request.cookies.get("user")
-            return redirect(url_for("profile", id=userid))
+            return redirect(url_for("dashboard"))
 
 
 @app.route("/login", methods=['post', 'get'])
@@ -32,7 +32,7 @@ def login():
         auth = Repository.auth(username, password)
         if auth["success"]:
             userid = auth["user"].id
-            response = make_response(redirect(url_for("profile", id=auth["user"].id)))
+            response = make_response(redirect(url_for("dashboard")))
             response.set_cookie('user', str(userid))
             return response
         else:
@@ -45,7 +45,7 @@ def register():
         return render_template("register.html")
     if request.method == "POST":
         user = Repository.register()
-        response = make_response(redirect(url_for("dashboard", id=user.id)))
+        response = make_response(redirect(url_for("dashboard")))
         response.set_cookie("user", str(user.id))
         return response
 
@@ -53,6 +53,12 @@ def register():
 @app.route("/dashboard", methods=['post', 'get'])
 def dashboard():
     return render_template("dashboard.html")
+
+@app.route("/profile/logout", methods=['GET', 'POST'])
+def logout():
+    response = make_response(redirect(url_for("index")))
+    response.set_cookie('user', "", max_age=0)
+    return response
 
 
 if __name__ == "__main__":

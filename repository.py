@@ -22,7 +22,8 @@ class Repository:
         password = generate_password_hash(request.form.get("psw"))
         nickname = request.form.get("nickname")
         avatar = request.form.get("avatar")
-        user = User.create_user(username, password, nickname, avatar)
+        admin = "admin" in request.form
+        user = User.create_user(username, password, nickname, avatar, admin)
         return user
 
     @staticmethod

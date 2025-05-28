@@ -13,11 +13,12 @@ class User(Model):
         database = pg_db
 
     @staticmethod
-    def create_user(username, password, nickname, admin):
+    def create_user(username, password, nickname, avatar, admin):
         user = User()
         user.username = username
         user.password = password
         user.nickname = nickname
+        user.avatar = avatar
         user.admin = admin
         user.save()
         return user
