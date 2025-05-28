@@ -1,6 +1,6 @@
 from peewee import *
 
-from main import init_db
+from database import pg_db
 
 
 class Plane(Model):
@@ -10,7 +10,7 @@ class Plane(Model):
     registration = CharField(max_length=10)
 
     class Meta:
-        database = init_db()
+        database = pg_db
 
     @staticmethod
     def createPlane(name, year, seats, registration):
