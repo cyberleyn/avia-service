@@ -1,5 +1,6 @@
 import json
 import os
+from pathlib import Path
 
 from flask import *
 from peewee import PostgresqlDatabase
@@ -14,7 +15,8 @@ DEFAULT_CONFIG = {
 
 
 def init_db():
-    CONFIG_FILE = os.path.join("config", "config.json")
+    current_dir = Path(__file__).parent.resolve()
+    CONFIG_FILE = current_dir / "config" / "config.json"
     if not os.path.exists(CONFIG_FILE):
         print("Конфиг отсутствует, добавлен конфиг по умолчанию")
         os.makedirs(os.path.dirname(CONFIG_FILE), exist_ok=True)
